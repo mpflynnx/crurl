@@ -27,7 +27,12 @@ $ python3 -m venv .venv # create virtual environment
 $ source .venv/bin/activate # activate environment
 $ python3 -m pip install git+https://github.com/mpflynnx/crurl.git # install from github
 ```
-- View help 
+
+### System dependency
+
+This application makes use of the **`xsel`** linux command, which should come with the OS. Otherwise run "sudo apt-get install xsel" or search your distrubutions package repository.
+
+### Viewing help 
 ```bash
 $ .venv/bin/crurl --help
 usage: crurl [-h] [-b BOOKMARK] [-w WEBLINK] [--version] [-v] [-o OUTPUT] [-D]
@@ -54,3 +59,85 @@ optional arguments:
   -f, --force           Overwrite existing bookmark if exists and use the
                         suggested filename (default: False)
 ```
+### Default usage, no arguments
+- Use this option when the system clipboard dependency **`xsel`** is installed and the filename title will be automatically retrieved from the weblink title.
+- Copy to the clipboard a website URL i.e `https://doc.rust-lang.org/rust-by-example/primitives.html`
+- Open a terminal
+- Type `crurl` then press `Enter` key
+- The contents of the clipboard is validated as a website URL.
+- The title from the website is automatically retrieved and used as the filename.
+```bash
+$ crurl
+
+    Reading url from clipboard...
+
+    Getting title for url...
+     ...https://doc.rust-lang.org/rust-by-example/primitives.html
+
+ Are you happy with this filename? "Primitives_Rust_By_Example.url" [yN] y
+
+     New file created at....
+
+/home/mpflynnx/Dropbox/bookmarks/Primitives_Rust_By_Example.url
+```
+- View the contents of the newly created file using **`cat`**
+```bash
+$ cat /home/mpflynnx/Dropbox/bookmarks/Primitives_Rust_By_Example.url
+[InternetShortcut]
+URL="https://doc.rust-lang.org/rust-by-example/primitives.html"
+```
+
+### Using the -w argument
+- Use this option when the system clipboard dependency **`xsel`** is **not** installed.
+- Copy to the clipboard a website URL i.e `https://doc.rust-lang.org/rust-by-example/primitives.html`
+- Open a terminal, type `crurl -w`
+- Paste the URL after the `-w` argument, then press `Enter` key
+- The URL given is validated as a website URL.
+- The title from the website is automatically retrieved and used as the filename.
+```bash
+$ crurl -w https://doc.rust-lang.org/rust-by-example/primitives.html
+
+    Getting title for url...
+     ...https://doc.rust-lang.org/rust-by-example/primitives.html
+
+ Are you happy with this filename? "Primitives_Rust_By_Example.url" [yN] y
+
+    New file created at....
+
+/home/mpflynnx/Dropbox/bookmarks/Primitives_Rust_By_Example.url
+```
+- View the contents of the newly created file using **`cat`**
+```bash
+$ cat /home/mpflynnx/Dropbox/bookmarks/Primitives_Rust_By_Example.url
+[InternetShortcut]
+URL="https://doc.rust-lang.org/rust-by-example/primitives.html"
+```
+
+### Using the -w and -b arguments
+- Use these arguments together when the website title is **not** required to be used as the filename and the system clipboard dependency **`xsel`** is **not** installed.
+- Copy to the clipboard a website URL i.e `https://doc.rust-lang.org/rust-by-example/primitives.html`
+- Open a terminal
+- Type `crurl - w` then paste the URL after the `-w` argument,
+- Type -b then in double quotes **`""`** type the required filename to be used i.e "rust by example primitives"
+- Press `Enter` key
+
+
+```bash
+$ crurl -w https://doc.rust-lang.org/rust-by-example/primitives.html -b "rust by example primitives"
+
+    Getting title for url...
+     ...https://doc.rust-lang.org/rust-by-example/primitives.html
+
+    New file created at....
+
+/home/mpflynnx/Dropbox/bookmarks/rust_by_example_primitives.url
+```
+- View the contents of the newly created file using **`cat`**
+```bash
+$ cat /home/mpflynnx/Dropbox/bookmarks/rust_by_example_primitives.url
+[InternetShortcut]
+URL="https://doc.rust-lang.org/rust-by-example/primitives.html"
+```
+
+
+
