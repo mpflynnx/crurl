@@ -60,14 +60,14 @@ optional arguments:
                         suggested filename (default: False)
 ```
 ### Default usage, no arguments
-- Use this option when the system clipboard dependency **`xsel`** is installed and the filename title will be automatically retrieved from the weblink title.
+- Use this option when the system clipboard dependency **`xsel`** is installed and the filename title can be automatically retrieved from the website title.
 - Copy to the clipboard a website URL i.e `https://doc.rust-lang.org/rust-by-example/primitives.html`
 - Open a terminal
 - Type `crurl` then press `Enter` key
 - The contents of the clipboard is validated as a website URL.
 - The title from the website is automatically retrieved and used as the filename.
 ```bash
-$ crurl
+$ .venv/bin/crurl
 
     Reading url from clipboard...
 
@@ -95,7 +95,7 @@ URL="https://doc.rust-lang.org/rust-by-example/primitives.html"
 - The URL given is validated as a website URL.
 - The title from the website is automatically retrieved and used as the filename.
 ```bash
-$ crurl -w https://doc.rust-lang.org/rust-by-example/primitives.html
+$ .venv/bin/crurl -w https://doc.rust-lang.org/rust-by-example/primitives.html
 
     Getting title for url...
      ...https://doc.rust-lang.org/rust-by-example/primitives.html
@@ -111,6 +111,41 @@ $ crurl -w https://doc.rust-lang.org/rust-by-example/primitives.html
 $ cat /home/mpflynnx/Dropbox/bookmarks/Primitives_Rust_By_Example.url
 [InternetShortcut]
 URL="https://doc.rust-lang.org/rust-by-example/primitives.html"
+```
+
+### using the -b argument
+- Use this argument when the website title **cannot** be obtained from the website URL usually due to a 403 Error code, as shown below.
+```bash
+$ .venv/bin/crurl
+Reading url from clipboard...
+
+    Getting title for url...
+     ...https://nandland.com/lesson-3-what-are-logic-gates-and/
+The server couldn't fulfill the request.
+Error code:  403
+crurl.main - CRITICAL - HTTP Error 403: Forbidden
+```
+- Copy to the clipboard a website URL.
+- Open a terminal
+- Type `crurl -b` then in double quotes **`""`** type the required filename to be used i.e "Tutorial – How Digital Designers use Boolean Algebra"
+- Press `Enter` key
+```bash
+$ .venv/bin/crurl -b "Tutorial – How Digital Designers use Boolean Algebra"
+
+    Reading url from clipboard...
+
+    Getting title for url...
+     ...https://nandland.com/lesson-3-what-are-logic-gates-and/
+
+    New file created at....
+
+/home/mpflynnx/Dropbox/bookmarks/Tutorial_How_Digital_Designers_use_Boolean_Algebra.url
+```
+- View the contents of the newly created file using **`cat`**
+```bash
+$ cat /home/mpflynnx/Dropbox/bookmarks/Tutorial_How_Digital_Designers_use_Boolean_Algebra.url
+[InternetShortcut]
+URL="https://nandland.com/lesson-3-what-are-logic-gates-and/"⏎
 ```
 
 ### Using the -w and -b arguments
